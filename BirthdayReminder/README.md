@@ -13,49 +13,64 @@
   </p>
 </p>
 
-You can create a normal birthday reminder program using `python`. You need to set the date and time of the birthday and reminder and you'll get an reminder of your or your friend's birthday notification. But I feel that this program is useless because you've to keep this code runnig... we can create a notification to make this code cooler and ready to public use. Well, develop and add features to this code mr. `Developer` `Researcher` 
- ```
-What the program does? 
+# 🎉 Birthday Reminder
 
-- User will select birthday
-- User will select time of the reminder
-- In that day | time program will wish her/him a happy birthday ❤️
-``` 
-### Requirements
+A simple Python program to keep track of your friends' and loved ones' birthdays and show a greeting on their special day.
 
-* Python
-* Python Libraries: `datetime`
+---
 
-### Contributing
+## 💡 What does it do?
 
-Any kind of contributions to `qxresearch-event-1/birthday-reminder` are welcome. While creating an issue(for this project) use `Birthday-Reminder` Label.
+- Stores a list of birthdays.
+- Allows you to add new birthdays via input.
+- Checks if today matches any birthday in the list.
+- Prints a birthday message with the correct age and suffix (e.g., "21st", "22nd", etc.).
 
-1. [Fork](https://github.com/qxresearch/qxresearch-event-1/fork) the Project
-2. Commit your Changes
-3. Open a [Pull Request](https://github.com/qxresearch/qxresearch-event-1/pulls)
+---
 
-### Video Tutorial
+## 🛠 Requirements
 
-* **YouTube :** [Birthday Reminder](https://youtu.be/qHloV2ZCo4s)
+- Python 3.x
+- `datetime` library (built-in)
 
-### Become Official Member @qxresearch
+---
 
-* Join Mozilla Group [@qxresearch](https://community.mozilla.org/en/groups/qx-research/)
-* Join Telegram Group [@qxresearch](https://t.me/qxresearch)
-* <a href = "mailto: rohitmandal814566@gmail.com">email</a> me your GitHub id (**subject**: GitHub id @qxresearch)
+## 💻 Example code
 
+```python
+import datetime
 
-<h3 align="center"></h3>
+current_date = datetime.date.today().strftime('%Y-%m-%d')
+current_date_lst = current_date.split('-')
 
-  <p align="center">
-    <br>
-    <br/>
-    <a href="https://youtu.be/qHloV2ZCo4s">View Demo</a>
-    ·
-    <a href="https://github.com/qxresearch/qxresearch-event-1/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/qxresearch/qxresearch-event-1/issues">Request Feature</a>
-    <br>
-    <br />
-  </p>
-</p>
+bday_log = [
+    ('Ayushi', ('1999', '10', '19')),
+    ('Yash', ('1999', '04', '21')),
+]
+
+add = input('To add birthday type y:').strip().lower()
+
+if add[:1] == 'y':
+    new = input('Add birthday in format yyyy-mm-dd:').strip()
+    name = input('Whose bday?').strip()
+    date = new.split('-')
+    if len(date) == 3:
+        bday_log.append((name, tuple(date)))
+    else:
+        print('Invalid date format. Skipping add.')
+
+found = False
+
+for birthday in bday_log:
+    if current_date_lst[1] == birthday[1][1] and current_date_lst[2] == birthday[1][2]:
+        age = int(current_date_lst[0]) - int(birthday[1][0])
+        if 10 < age % 100 < 14:
+            suffix = 'th'
+        else:
+            suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(age % 10, 'th')
+        print(f"It's {birthday[0]}'s {age}{suffix} Birthday")
+        found = True
+
+if not found:
+    print("No birthdays today.")
+
